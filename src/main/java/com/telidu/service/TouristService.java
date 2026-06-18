@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.telidu.exception.TouristNotFoundException;
 import com.telidu.model.Tourist;
 import com.telidu.repo.ITouristRepo;
 @Service
@@ -20,19 +21,19 @@ public class TouristService implements ITouristService {
 	@Override
 	public String registerTourist(Tourist tourist) {
 		Tourist touristId=repo.save(tourist);
-		return "Tourist id saved as "+touristId.getId();
+		return "Tourist id saved as "+ touristId.getId();
 		
 	}
 
 	@Override
-	public String fetchTouristById(Integer id) {
-		return null;
+	public Tourist fetchTouristById(Integer id) {
+		return repo.findById(id).orElseThrow(()->new TouristNotFoundException("Tourist with given id is not found"));
 	}
 
 	@Override
 	public List<Tourist> fetchAllTouristInfo() {
 		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
