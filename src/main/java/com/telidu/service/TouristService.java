@@ -1,6 +1,7 @@
 package com.telidu.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,13 +40,28 @@ public class TouristService implements ITouristService {
 	@Override
 	public String updateTouristinfo(Tourist tourist) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Optional<Tourist> optional = repo.findById(tourist.getId());
+		if(optional.isPresent()) {
+			repo.save(tourist);
+			return "Toursit info updated successfully";
+		}
+		throw new TouristNotFoundException("not found");
+		
 	}
+	
 
 	@Override
 	public String updateTouristBudget(Integer id, Double budget) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional<Tourist> optional = repo.findById(id);
+		if(optional.isPresent()) {
+			Tourist tourist=optional.get();
+			tourist.setBudget(budget);
+			repo.save(tourist);
+			return "successfully updated";
+		}
+		throw new TouristNotFoundException("not found");
 	}
 
 }
