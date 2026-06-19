@@ -10,7 +10,7 @@ public interface ITouristService {
 	List<Tourist> fetchAllTouristInfo();
 	String updateTouristinfo(Tourist tourist);
 	String updateTouristBudget(Integer id,Double budget);
-	
+	String deleteTouristInfoById(Integer id);
 	
 
 }

@@ -64,4 +64,15 @@ public class TouristService implements ITouristService {
 		throw new TouristNotFoundException("not found");
 	}
 
+	@Override
+	public String deleteTouristInfoById(Integer id) {
+		// TODO Auto-generated method stub
+		Optional<Tourist> optional = repo.findById(id);
+		if(optional.isPresent()) {
+			repo.deleteById(id);
+			return "Tourist id for the given id is successfully deleted";
+		}
+		throw new TouristNotFoundException("not found");
+	}
+
 }
