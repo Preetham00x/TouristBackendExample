@@ -1,7 +1,15 @@
 package com.telidu.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.telidu.model.Tourist;
 import com.telidu.service.ITouristService;
 
 public class TouristController {
@@ -11,5 +19,18 @@ public class TouristController {
 	public void setService(ITouristService service) {
 		this.service=service;
 	}
-
+	@PostMapping()
+	public ResponseEntity<String> registerTourist(@RequestBody Tourist tourist){
+		String res=service.registerTourist(tourist);
+		return new ResponseEntity<String>(res,HttpStatus.CREATED);
+		
+	}
+	@GetMapping("/get-tourist/{id}")
+    public ResponseEntity<?> getTourist(@PathVariable("id") Integer id){
+    	try {
+    		service.fetchTouristById(id);
+    	}catch(Exception e) {
+    		
+    	}
+    }
 }
