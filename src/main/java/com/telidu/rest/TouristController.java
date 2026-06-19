@@ -27,22 +27,16 @@ public class TouristController {
 	}
 	@GetMapping("/get-tourist/{id}")
     public ResponseEntity<?> getTourist(@PathVariable("id") Integer id){
-    	try {
+    	
     		Tourist tourist = service.fetchTouristById(id);
     		return new ResponseEntity<Tourist>(tourist,HttpStatus.OK);
     		
-    	}catch(Exception e) {
-    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-    		
-    	}
+    	
     }
 	public ResponseEntity<String> updateTourist(@PathVariable("id") Integer id){
-		try {
+		
 		String res=service.deleteTouristInfoById(id);
 		return new ResponseEntity<String >(res,HttpStatus.OK);
-		}
-		catch(Exception e) {
-			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		
 	}
 }
